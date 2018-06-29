@@ -1,0 +1,28 @@
+{
+  "name": "cntnd_schedule",
+  "homepage": "https://github.com/cntnd/schedule",
+  "authors": [
+    "Thomas D'Ascoli <thomas@dasco.li>"
+  ],
+  "description": "contenido module for displaying football games (sfv)",
+  "main": "",
+  "keywords": [
+    "contenido",
+    "cntnd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sortablejs":"latest",
+    "knockout":"3.4.2"
+  },
+  "devDependecies":{
+    "jquery":"3.3.1"
+  }
+}

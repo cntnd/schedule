@@ -1,0 +1,24 @@
+{
+  "name": "cntnd_schedule",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cntnd/schedule.git"
+  },
+  "author": "tdascoli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cntnd/schedule/issues"
+  },
+  "homepage": "https://github.com/cntnd/schedule#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-copy": "^1.1.0",
+    "gulp-file": "^0.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-zip": "^4.1.0"
+  }
+}
