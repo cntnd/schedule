@@ -7,7 +7,7 @@
   "description": "contenido module for displaying football games (sfv)",
   "main": "",
   "keywords": [
-    "contenido",
+    "contenido",  
     "cntnd"
   ],
   "license": "MIT",
@@ -19,8 +19,7 @@
     "tests"
   ],
   "dependencies": {
-    "sortablejs":"latest",
-    "knockout":"3.4.2"
+    "sortablejs":"latest"
   },
   "devDependecies":{
     "jquery":"3.3.1"

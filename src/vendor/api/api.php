@@ -2722,14 +2722,14 @@ require 'auth.php'; // from the PHP-API-AUTH project, see: https://github.com/me
 
 // uncomment the lines below for form+session based authentication (see "login.html"):
 
-// $auth = new PHP_API_AUTH(array(
-// 	'authenticator'=>function($user,$pass){ $_SESSION['user']=($user=='admin' && $pass=='admin'); }
-// ));
-// if ($auth->executeCommand()) exit(0);
-// if (empty($_SESSION['user']) || !$auth->hasValidCsrfToken()) {
-//	header('HTTP/1.0 401 Unauthorized');
-//	exit(0);
-// }
+$auth = new PHP_API_AUTH(array(
+	'authenticator'=>function($user,$pass){ $_SESSION['user']=($user=='cntndapi' && $pass=='cj,fgP@[N{p}b.hH'); }
+));
+if ($auth->executeCommand()) exit(0);
+if (empty($_SESSION['user']) || !$auth->hasValidCsrfToken()) {
+	header('HTTP/1.0 401 Unauthorized');
+	exit(0);
+}
 
 // uncomment the lines below when running in stand-alone mode:
 
@@ -2774,5 +2774,9 @@ require 'auth.php'; // from the PHP-API-AUTH project, see: https://github.com/me
 // 	'database'=>'data/blog.db',
 // ));
 // $api->executeCommand();
-
+$api = new PHP_CRUD_API(array(
+    'username'=>'dbapi',
+    'password'=>'vpF0d50%',
+    'database'=>'fclaeng_contenido',
+));
 $api->executeCommand();

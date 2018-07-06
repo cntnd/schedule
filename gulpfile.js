@@ -30,7 +30,7 @@ gulp.task('init-info-xml', function () {
         .pipe(gulp.dest('src/'));
 });
 gulp.task('init-php-input', function () {
-    return file(pkg.name+'_input.php', '// '+pkg.name+'_input\n?>', {src: true})
+    return file(pkg.name+'_input.php', '// '+pkg.name+'_input\n?>\n<?php', {src: true})
         .pipe(gulp.dest('src/php/'));
 });
 gulp.task('init-php-output', function () {
