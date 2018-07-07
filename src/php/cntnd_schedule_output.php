@@ -7,8 +7,10 @@ $loc_de = setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'deu_deu');
 // contenido vars
 $orig_orderLeft   = "CMS_VALUE[10]";
 $orig_orderRight  = "CMS_VALUE[11]";
-$orig_teams       = "CMS_VALUE[12]";
-$moduleActive     = "CMS_VALUE[13]";
+$orderLeft        = html_entity_decode($orig_orderLeft,ENT_QUOTES);
+$orderRight       = html_entity_decode($orig_orderRight,ENT_QUOTES);
+
+$moduleActive     = "CMS_VALUE[12]";
 
 
 

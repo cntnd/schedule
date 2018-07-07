@@ -31,7 +31,6 @@ $(document).ready(function() {
         self.myDropCallback = function (arg) {
             arg.item.side(arg.targetParent.id);
             arg.item.index(arg.targetIndex);
-            
             if (console) {
                 console.log("Moved '" + arg.item.name() + "' from " + arg.sourceParent.id + " (index: " + arg.sourceIndex + ") to " + arg.targetParent.id + " (index " + arg.targetIndex + ")");
             }
@@ -46,11 +45,14 @@ $(document).ready(function() {
         self.removeTeam = function(team) { self.teamsLeft.remove(team) };
 
         self.resetTeams = function(){
-            //var mappedTeams = $.map(self.loadTeams, function(item) { return new Team(item) });
-            //self.teams(mappedTeams);
+            var mappedTeamsLeft = $.map(teamsLeftJson, function(item) { return new Team(item) });
+            self.teamsLeft(mappedTeamsLeft);
+            var mappedTeamsRight = $.map(teamsRightJson, function(item) { return new Team(item) });
+            self.teamsRight(mappedTeamsRight);
         };
         self.eraseTeams = function(){
-            //self.teams([]);
+            self.teamsLeft([]);
+            self.teamsRight([]);
         };
 
         // Load initial state from server, convert it to Team instances, then populate self.tasks
@@ -66,45 +68,4 @@ $(document).ready(function() {
     }
 
     ko.applyBindings(new TeamViewModel());
-
-    // sortable
-    function getOrder(object) {
-        var dataList = $(object).map(function () {
-            return $(this).data("id");
-        }).get();
-
-        return dataList.join("|");
-    }
-    function saveOrder(){
-        $('#orderLeft').val(getOrder("#sortable-left .list-group-item"));
-        $('#orderRight').val(getOrder("#sortable-right .list-group-item"));
-    }
-
-    /*
-    var listLeftObject = document.getElementById('sortable-left');
-    var listRightObject = document.getElementById('sortable-right');
-
-    var listLeft = Sortable.create(listLeftObject, {
-        group: 'list',
-        animation: 100,
-        onEnd: saveOrder,
-        filter: '.js-remove',
-        onFilter: function (evt) {
-            var el = listLeft.closest(evt.item); // get dragged item
-            el && el.parentNode.removeChild(el);
-            saveOrder();
-        }
-    });
-    var listRight = Sortable.create(listRightObject, {
-        group: 'list',
-        animation: 100,
-        onEnd:  saveOrder,
-        filter: '.js-remove',
-        onFilter: function (evt) {
-            var el = listRight.closest(evt.item); // get dragged item
-            el && el.parentNode.removeChild(el);
-            saveOrder();
-        }
-    });
-    */
 });

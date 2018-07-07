@@ -14,8 +14,7 @@ $orig_orderRight  = "CMS_VALUE[11]";
 $orderLeft        = html_entity_decode($orig_orderLeft,ENT_QUOTES);
 $orderRight       = html_entity_decode($orig_orderRight,ENT_QUOTES);
 
-$orig_teams       = "CMS_VALUE[12]";
-$moduleActive     = "CMS_VALUE[13]";
+$moduleActive     = "CMS_VALUE[12]";
 
 // includes
 cInclude('module', 'includes/class.cntndutil.php');
@@ -96,25 +95,44 @@ $util->getAllJs($absolutePath, $jsFiles);
             </div>
         </div>
 
+        <div data-bind="foreach: teamsRight">
+            <div class="card">
+                <div class="card-body">
+                    <strong>
+                        Team <span data-bind="text: name"></span>
+                        <!-- <span class="expand-button">expand</span> -->
+                    </strong>
+                    <div class="expand">
+                        <select class="form-control form-control-sm" data-bind="options: $root.availableTeams, value: team, optionsValue: 'team', optionsCaption: '-Bitte Team auswählen-', optionsText: 'team'"></select>
+                        <div class="form-group">
+                            <label for="team">Name</label>
+                            <input type="text" class="form-control form-control-sm" id="team" placeholder="Name" data-bind="value: name"  />
+                        </div>
+                        <div class="form-group">
+                            <label for="url">URL</label>
+                            <input type="text" class="form-control form-control-sm" id="url" placeholder="URL" data-bind="value: url" />
+                        </div>
+                        <a href="#" class="btn btn-sm btn-warning" data-bind="click: $parent.removeTeam">Löschen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <?php
-    echo '<div class="col-sm">';
-    echo '<p class="col-title">Linke Seite<p>';
-    echo '<ul class="card sortable list-group" id="sortable-left" data-bind="sortable: { data: teamsLeft, afterMove: myDropCallback }">';
-    echo '<li class="list-group-item">Team: <strong data-bind="text: name"></strong> <span data-bind="text: team"></span> (<span data-bind="text: side"></span>)</li>';
 
-    //echo '<li class="list-group-item" data-id="' . $team . '"><strong>Team: ' . $team . '</strong><i class="js-remove">✖</i></li>';
+    <div class="col-sm">
+        <p class="col-title">Linke Seite<p>
+        <ul class="card sortable list-group" id="sortable-left" data-bind="sortable: { data: teamsLeft, afterMove: myDropCallback }">
+            <li class="list-group-item">Team: <strong data-bind="text: name"></strong> <span data-bind="text: team"></span></li>
+        </ul>
+    </div>
 
-    echo '</ul>';
-    echo '</div>';
-
-    echo '<div class="col-sm">';
-    echo '<p class="col-title">Rechte Seite<p>';
-    echo '<ul class="card sortable list-group" id="sortable-right" data-bind="sortable: { data: teamsRight, afterMove: myDropCallback }">';
-    echo '<li class="list-group-item">Team: <strong data-bind="text: name"></strong> <span data-bind="text: team"></span> (<span data-bind="text: side"></span>)</li>';
-    echo '</ul>';
-    echo '</div>';
-    ?>
+    <div class="col-sm">
+        <p class="col-title">Rechte Seite<p>
+        <ul class="card sortable list-group" id="sortable-right" data-bind="sortable: { data: teamsRight, afterMove: myDropCallback }">
+            <li class="list-group-item">Team: <strong data-bind="text: name"></strong> <span data-bind="text: team"></span></li>
+        </ul>
+    </div>
 </div>
 
 <!-- data for Contenido -->
