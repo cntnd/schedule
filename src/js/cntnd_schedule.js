@@ -53,17 +53,29 @@ $(document).ready(function() {
         $('#orderRight').val(getOrder("#sortable-right .list-group-item"));
     }
 
-    var listLeft = document.getElementById('sortable-left');
-    var listRight = document.getElementById('sortable-right');
+    var listLeftObject = document.getElementById('sortable-left');
+    var listRightObject = document.getElementById('sortable-right');
 
-    Sortable.create(listLeft, {
+    var listLeft = Sortable.create(listLeftObject, {
         group: 'list',
         animation: 100,
-        onEnd: saveOrder
+        onEnd: saveOrder,
+        filter: '.js-remove',
+        onFilter: function (evt) {
+            var el = listLeft.closest(evt.item); // get dragged item
+            el && el.parentNode.removeChild(el);
+            saveOrder();
+        }
     });
-    Sortable.create(listRight, {
+    var listRight = Sortable.create(listRightObject, {
         group: 'list',
         animation: 100,
-        onEnd:  saveOrder
+        onEnd:  saveOrder,
+        filter: '.js-remove',
+        onFilter: function (evt) {
+            var el = listRight.closest(evt.item); // get dragged item
+            el && el.parentNode.removeChild(el);
+            saveOrder();
+        }
     });
 });

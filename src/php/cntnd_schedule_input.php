@@ -4,10 +4,17 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
       integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <?php
+// todo
+// - collapsable
+// - sorting
+// - add teams without scheduleTeam to left/right sortable
+// - delete sorting and/or element in sorting
+
 // cntnd_schedule_output
 $orig_orderLeft   = "CMS_VALUE[10]";
 $orig_orderRight  = "CMS_VALUE[11]";
 $orig_teams       = "CMS_VALUE[12]";
+$moduleActive     = "CMS_VALUE[13]";
 
 // includes
 cInclude('module', 'includes/class.cntndutil.php');
@@ -70,7 +77,7 @@ $util->getAllJs($absolutePath, $jsFiles);
                 <div class="card-body">
                     <strong>
                         Team <span data-bind="text: name"></span>
-                        <span class="expand-button">expand</span>
+                        <!-- <span class="expand-button">expand</span> -->
                     </strong>
                     <div class="expand">
                         <select class="form-control form-control-sm" data-bind="options: $root.availableTeams, value: team, optionsValue: 'team', optionsCaption: '-Bitte Team auswählen-', optionsText: 'team'"></select>
@@ -89,18 +96,34 @@ $util->getAllJs($absolutePath, $jsFiles);
         </div>
 
     </div>
-
     <?php
+
+    $configTeams = json_decode(html_entity_decode($orig_teams,ENT_QUOTES), true);
 
     echo '<div class="col-sm">';
     echo '<p class="col-title">Linke Seite<p>';
     echo '<ul class="card sortable list-group" id="sortable-left">';
-    foreach($orderLeft as $team){
-        $obsolet='';
-        if (!array_key_exists($team,$teams)){
-            $obsolet=' (obsolet)';
+    foreach($orderLeft as $team) {
+        if (!empty($team)) {
+            $obsolet = '';
+            if (!array_key_exists($team, $teams)) {
+                $obsolet = ' (obsolet)';
+            }
+            echo '<li class="list-group-item" data-id="' . $team . '"><strong>Team: ' . $team . $obsolet . '</strong><i class="js-remove">✖</i></li>';
         }
-        echo '<li class="list-group-item" data-id="' . $team . '"><strong>Team: '.$team.$obsolet.'</strong></li>';
+    }
+    foreach($configTeams as $configTeam) {
+        if (!array_key_exists($configTeam['team'],$teams) &&
+            !in_array($configTeam['name'],$orderLeft) &&
+            !in_array($configTeam['name'],$orderRight)){
+            echo '<li class="list-group-item" data-id="' . $configTeam['name'] . '"><strong>Team: '.$configTeam['name'].'</strong><i class="js-remove">✖</i></li>';
+        }
+    }
+    foreach($teams as $team) {
+        if (!in_array($team,$orderLeft) &&
+            !in_array($team,$orderRight)) {
+            echo '<li class="list-group-item" data-id="' . $team . '"><strong>Team: ' . $team . '</strong><i class="js-remove">✖</i></li>';
+        }
     }
     echo '</ul>';
     echo '</div>';
@@ -109,17 +132,20 @@ $util->getAllJs($absolutePath, $jsFiles);
     echo '<p class="col-title">Rechte Seite<p>';
     echo '<ul class="card sortable list-group" id="sortable-right">';
     foreach($orderRight as $team){
-        if (!array_key_exists($team,$teams)){
-            $obsolet=' (obsolet)';
+        if (!empty($team)) {
+            $obsolet = '';
+            if (!array_key_exists($team, $teams)) {
+                $obsolet = ' (obsolet)';
+            }
+            echo '<li class="list-group-item" data-id="' . $team . '"><strong>Team: ' . $team . $obsolet . '</strong><i class="js-remove">✖</i></li>';
         }
-        echo '<li class="list-group-item" data-id="' . $team . '"><strong>Team: '.$team.$obsolet.'</strong></li>';
     }
     echo '</ul>';
     echo '</div>';
     ?>
 </div>
 <!-- data for Contenido -->
-<input type="hidden" name="CMS_VAR[10]" id="orderLeft" value="<?php echo $orig_orderLeft; ?>" />
-<input type="hidden" name="CMS_VAR[11]" id="orderRight" value="<?php echo $orig_orderRight; ?>" />
+<input type="text" name="CMS_VAR[10]" id="orderLeft" value="<?php echo $orig_orderLeft; ?>" />
+<input type="text" name="CMS_VAR[11]" id="orderRight" value="<?php echo $orig_orderRight; ?>" />
 <input type="hidden" name="CMS_VAR[12]" id="teams" value="<?php echo $orig_teams; ?>" data-bind="value: $root.saveTeams()" />
 <?php
