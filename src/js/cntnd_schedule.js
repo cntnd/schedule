@@ -5,36 +5,63 @@ $(document).ready(function() {
         this.name = ko.observable(data.name);
         this.url = ko.observable(data.url);
         this.team = ko.observable(data.team);
+        if (data.side===undefined){
+            this.side = ko.observable('left');    
+        }
+        else {
+            this.side = ko.observable(data.side);
+        }
+        this.index = ko.observable(data.index);
     }
 
     function TeamViewModel() {
         // Data
         var self = this;
-        self.teams = ko.observableArray([]);
         self.newTeamText = ko.observable();
         self.availableTeams = scheduleTeams;
-        self.loadTeams = teamJson;
+
+        // Sortable
+        self.teamsLeft = ko.observableArray([]);
+        self.teamsLeft.id='left';
+        self.saveTeamsLeft = function(){ return ko.toJSON(self.teamsLeft); };
+        self.teamsRight = ko.observableArray([]);
+        self.teamsRight.id='right';
+        self.saveTeamsRight = function(){ return ko.toJSON(self.teamsRight); };
+
+        self.myDropCallback = function (arg) {
+            arg.item.side(arg.targetParent.id);
+            arg.item.index(arg.targetIndex);
+            
+            if (console) {
+                console.log("Moved '" + arg.item.name() + "' from " + arg.sourceParent.id + " (index: " + arg.sourceIndex + ") to " + arg.targetParent.id + " (index " + arg.targetIndex + ")");
+            }
+        };
 
         // Operations
         self.addTeam = function() {
-            self.teams.push(new Team({ name: this.newTeamText() }));
-            self.newTeamText("");
+            self.teamsLeft.push(new Team({ name: this.newTeamText() }));
+            self.newTeamText('');
         };
-        self.removeTeam = function(team) { self.teams.remove(team) };
-        self.saveTeams = function(){ return ko.toJSON(self.teams); };
+
+        self.removeTeam = function(team) { self.teamsLeft.remove(team) };
 
         self.resetTeams = function(){
-            var mappedTeams = $.map(self.loadTeams, function(item) { return new Team(item) });
-            self.teams(mappedTeams);
+            //var mappedTeams = $.map(self.loadTeams, function(item) { return new Team(item) });
+            //self.teams(mappedTeams);
         };
         self.eraseTeams = function(){
-            self.teams([]);
+            //self.teams([]);
         };
 
         // Load initial state from server, convert it to Team instances, then populate self.tasks
-        if (self.loadTeams!==undefined) {
-            var mappedTeams = $.map(self.loadTeams, function(item) { return new Team(item) });
-            self.teams(mappedTeams);
+        console.log(teamsLeftJson, teamsRightJson);
+        if (teamsLeftJson!==undefined) {
+            var mappedTeamsLeft = $.map(teamsLeftJson, function(item) { return new Team(item) });
+            self.teamsLeft(mappedTeamsLeft);
+        }
+        if (teamsRightJson!==undefined) {
+            var mappedTeamsRight = $.map(teamsRightJson, function(item) { return new Team(item) });
+            self.teamsRight(mappedTeamsRight);
         }
     }
 
@@ -53,6 +80,7 @@ $(document).ready(function() {
         $('#orderRight').val(getOrder("#sortable-right .list-group-item"));
     }
 
+    /*
     var listLeftObject = document.getElementById('sortable-left');
     var listRightObject = document.getElementById('sortable-right');
 
@@ -78,4 +106,5 @@ $(document).ready(function() {
             saveOrder();
         }
     });
+    */
 });

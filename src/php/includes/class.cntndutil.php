@@ -83,9 +83,12 @@ class CntndUtil
         return $responseData;
     }
 
-    public function isJson($string) {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
+    public function isJson($data=NULL) {
+        if (!empty($data)) {
+            @json_decode($data);
+            return (json_last_error() === JSON_ERROR_NONE);
+        }
+        return false;
     }
 }
 ?>
