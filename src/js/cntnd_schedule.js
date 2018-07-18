@@ -56,9 +56,13 @@ $(document).ready(function() {
         };
 
         // Load initial state from server, convert it to Team instances, then populate self.tasks
-        console.log(teamsLeftJson, teamsRightJson);
-        if (teamsLeftJson!==undefined) {
+        console.log(teamsLeftJson, $.isEmptyObject(teamsLeftJson));
+        if (teamsLeftJson!==undefined && !$.isEmptyObject(teamsLeftJson)) {
             var mappedTeamsLeft = $.map(teamsLeftJson, function(item) { return new Team(item) });
+            self.teamsLeft(mappedTeamsLeft);
+        }
+        else if (!$.isEmptyObject(self.availableTeams)) {
+            var mappedTeamsLeft = $.map(self.availableTeams, function(item) { return new Team(item) });
             self.teamsLeft(mappedTeamsLeft);
         }
         if (teamsRightJson!==undefined) {

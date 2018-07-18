@@ -7,12 +7,10 @@ $loc_de = setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'deu_deu');
 // contenido vars
 $orig_orderLeft   = "CMS_VALUE[10]";
 $orig_orderRight  = "CMS_VALUE[11]";
-$orderLeft        = html_entity_decode($orig_orderLeft,ENT_QUOTES);
-$orderRight       = html_entity_decode($orig_orderRight,ENT_QUOTES);
+$orderLeft        = json_decode(html_entity_decode($orig_orderLeft,ENT_QUOTES), true);
+$orderRight       = json_decode(html_entity_decode($orig_orderRight,ENT_QUOTES), true);
 
 $moduleActive     = "CMS_VALUE[12]";
-
-
 
 // laden der daten
 // nächstes spiel auslesen
@@ -22,7 +20,6 @@ $result = $db->query($sql);
 $count = $db->num_rows();
 
 if ($result!==false) {
-    $i = 0;
     while ($db->next_record()) {
         // datum
         $TagKurz = $db->f("TagKurz");
@@ -35,13 +32,11 @@ if ($result!==false) {
         }
         $TeamnameA = $db->f("TeamnameA");
         $TeamnameB = $db->f("TeamnameB");
-        if ($i > 0) {
-            if ($db->f("VereinsnummerA") == '10311') {
-                $TeamnameA = 'FCL';
-            }
-            if ($db->f("VereinsnummerB") == '10311') {
-                $TeamnameB = 'FCL';
-            }
+        if ($db->f("VereinsnummerA") == '10311') {
+            $TeamnameA = 'FCL';
+        }
+        if ($db->f("VereinsnummerB") == '10311') {
+            $TeamnameB = 'FCL';
         }
 
         $spiel = array(
@@ -61,19 +56,27 @@ if ($result!==false) {
             'VereinsnummerB' => $db->f("VereinsnummerB")
         );
         $data[$db->f('Team')] = $spiel;
-        $i++;
     }
 }
 
+foreach ($orderLeft as $value){
+    $data[$value['team']]['data_team']=$value['name'];
+    $data[$value['team']]['data_url']=$value['url'];
+    $data[$value['team']]['noData']="false";
 
+    $spieleLeft[] = $data[$value['team']];
+}
+
+foreach ($orderRight as $value){
+    $data[$value['team']]['data_team']=$value['name'];
+    $data[$value['team']]['data_url']=$value['url'];
+    $data[$value['team']]['noData']="false";
+
+    $spieleRight[] = $data[$value['team']];
+}
 
 $smarty = cSmartyFrontend::getInstance();
 $smarty->assign('spieleLeft', $spieleLeft);
 $smarty->assign('spieleRight', $spieleRight);
-$smarty->assign('spieleKifu', $spieleKifu);
-$smarty->assign('aktivTeams', $aktivTeams);
-$smarty->assign('juniorenTeams', $juniorenTeams);
-$smarty->assign('team1', $team1);
-$smarty->assign('count', $count);
 $smarty->display('get.tpl');
 ?>
