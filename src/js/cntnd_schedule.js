@@ -5,6 +5,7 @@ $(document).ready(function() {
         this.name = ko.observable(data.name);
         this.url = ko.observable(data.url);
         this.team = ko.observable(data.team);
+        this.firstTeam = ko.observable(data.firstTeam);
         if (data.side===undefined){
             this.side = ko.observable('left');    
         }

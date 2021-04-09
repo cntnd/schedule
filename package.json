@@ -1,24 +1,24 @@
 {
   "name": "cntnd_schedule",
   "version": "1.0.0",
-  "description": "",
-  "main": "gulpfile.js",
+  "description": "Nächste Spiele (football.ch)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cntnd/schedule.git"
   },
-  "author": "tdascoli",
+  "devDependencies": {
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-file": "^0.4.0",
+    "gulp-minifier": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-zip": "^5.0.1",
+    "kind-of": ">=6.0.3"
+  },
+  "author": "Thomas D Ascoli, thomas@dasco.li",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cntnd/schedule/issues"
   },
-  "homepage": "https://github.com/cntnd/schedule#readme",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.4.0",
-    "gulp-copy": "^1.1.0",
-    "gulp-file": "^0.4.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-zip": "^4.1.0"
-  }
+  "homepage": "https://github.com/cntnd/schedule#readme"
 }

@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module><name>cntnd_schedule</name><description/><type/><alias>cntnd_schedule</alias></module>
+<module>
+<name>cntnd_schedule</name>
+<description>
+cntnd_schedule
+Nächste Spiele (football.ch)
+
+Autor Thomas D Ascoli, thomas@dasco.li
+
+Version 1.0.0
+</description>
+<type/>
+<alias>cntnd_schedule</alias>
+</module>

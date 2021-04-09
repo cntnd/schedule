@@ -1,4 +1,6 @@
 /* cntnd_schedule */
+@import url('https://cdn.jsdelivr.net/gh/cntnd/core_style@0.1.1/dist/core_style.css');
+
 .form-control-sm {
   font-size: 11px !important;
 }
@@ -25,6 +27,19 @@ label {
   min-height: 40px;
 }
 
+.list-group {
+  padding: 0;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: .75rem 1.25rem;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+}
+
 .list-group-item i {
   -webkit-transition: opacity .2s;
   transition: opacity .2s;
@@ -40,4 +55,35 @@ label {
 }
 .list-group-item:hover i {
   opacity: 1;
+}
+
+.w-33 {
+  margin-inside: 10px;
+}
+
+/* FRONTEND */
+.games {
+  padding: 0;
+}
+
+.game {
+  list-style-type: none;
+  margin-bottom: 10px;
+
+  &.game--first-team {
+    font-size: 1.25em;
+  }
+
+  > span {
+    display: block;
+  }
+
+  .game__team {
+    font-weight: bold;
+  }
+
+  .game__date-time,
+  .game__place {
+    font-size: .75em;
+  }
 }
