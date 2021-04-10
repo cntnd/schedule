@@ -12,7 +12,7 @@ cInclude('module', 'includes/script.cntnd_schedule_input.php');
 cInclude('module', 'includes/class.cntndutil.php');
 
 // classes
-$conDb = cRegistry::getDb();
+$conDb = new cDb;
 $util = new CntndUtil();
 $module = new cModuleHandler($cCurrentModule);
 $absolutePath = $module->getModulePath();
@@ -74,7 +74,7 @@ $util->getAllJs($absolutePath, $jsFiles);
         <input id="vereinsnummer" type="text" name="CMS_VAR[5]" value="CMS_VALUE[5]" />
     </div>
 
-    <button class="btn btn-sm">Modul Zurücksetzen</button>
+    <button class="btn btn-sm"><?= mi18n("MODULE_RESET") ?></button>
 </div>
 
 <hr />
@@ -84,12 +84,12 @@ $util->getAllJs($absolutePath, $jsFiles);
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="newTeamText">Neues Team</label>
-                    <input type="text" class="form-control form-control-sm" id="newTeamText" placeholder="Neues Team" data-bind="value: newTeamText" />
+                    <label for="newTeamText"><?= mi18n("NEW_TEAM") ?></label>
+                    <input type="text" class="form-control form-control-sm" id="newTeamText" placeholder="<?= mi18n("NEW_TEAM") ?>" data-bind="value: newTeamText" />
                 </div>
-                <button data-bind="click: addTeam" class="btn btn-sm btn-primary">Hinzufügen</button>
-                <button data-bind="click: resetTeams" class="btn btn-sm">Zurücksetzen</button>
-                <button data-bind="click: eraseTeams" class="btn btn-sm btn-light">Löschen</button>
+                <button data-bind="click: addTeam" class="btn btn-sm btn-primary"><?= mi18n("ADD") ?></button>
+                <button data-bind="click: resetTeams" class="btn btn-sm"><?= mi18n("RESET") ?></button>
+                <button data-bind="click: eraseTeams" class="btn btn-sm btn-light"><?= mi18n("REMOVE") ?></button>
             </div>
         </div>
 
@@ -102,27 +102,27 @@ $util->getAllJs($absolutePath, $jsFiles);
                     </strong>
                     <div class="expand">
                         <div class="form-group">
-                            <select data-bind="options: $root.availableTeams, value: team, optionsValue: 'team', optionsCaption: '-Bitte Team auswählen-', optionsText: 'team'"></select>
+                            <select data-bind="options: $root.availableTeams, value: team, optionsValue: 'team', optionsCaption: '<?= mi18n("CHOOSE_TEAM") ?>', optionsText: 'team'"></select>
                         </div>
 
                         <div class="form-group">
-                            <label for="team">Name</label>
-                            <input type="text" class="form-control form-control-sm" id="team" placeholder="Name" data-bind="value: name"  />
+                            <label for="team"><?= mi18n("TEAM_NAME") ?></label>
+                            <input type="text" class="form-control form-control-sm" id="team" placeholder="<?= mi18n("TEAM_NAME") ?>" data-bind="value: name"  />
                         </div>
 
                         <div class="form-group">
-                            <label for="url">URL</label>
-                            <input type="text" class="form-control form-control-sm" id="url" placeholder="URL" data-bind="value: url" />
+                            <label for="url"><?= mi18n("TEAM_URL") ?></label>
+                            <input type="text" class="form-control form-control-sm" id="url" placeholder="<?= mi18n("TEAM_URL") ?>" data-bind="value: url" />
                         </div>
 
                         <div class="form-group">
                             <div class=" form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="firstTeam" value="true" data-bind="checked: firstTeam">
-                                <label class="form-check-label" for="firstTeam">1. Mannschaft</label>
+                                <label class="form-check-label" for="firstTeam"><?= mi18n("FIRST_TEAM") ?></label>
                             </div>
                         </div>
 
-                        <button class="btn btn-sm btn-light" data-bind="click: $parent.removeTeam">Löschen</button>
+                        <button class="btn btn-sm btn-light" data-bind="click: $parent.removeTeam"><?= mi18n("REMOVE") ?></button>
                     </div>
                 </div>
             </div>
@@ -138,14 +138,14 @@ $util->getAllJs($absolutePath, $jsFiles);
                     <div class="expand">
                         <select class="form-control form-control-sm" data-bind="options: $root.availableTeams, value: team, optionsValue: 'team', optionsCaption: '-Bitte Team auswählen-', optionsText: 'team'"></select>
                         <div class="form-group">
-                            <label for="team">Name</label>
-                            <input type="text" class="form-control form-control-sm" id="team" placeholder="Name" data-bind="value: name"  />
+                            <label for="team"><?= mi18n("TEAM_NAME") ?></label>
+                            <input type="text" class="form-control form-control-sm" id="team" placeholder="<?= mi18n("TEAM_NAME") ?>" data-bind="value: name"  />
                         </div>
                         <div class="form-group">
-                            <label for="url">URL</label>
-                            <input type="text" class="form-control form-control-sm" id="url" placeholder="URL" data-bind="value: url" />
+                            <label for="url"><?= mi18n("TEAM_URL") ?></label>
+                            <input type="text" class="form-control form-control-sm" id="url" placeholder="<?= mi18n("TEAM_URL") ?>" data-bind="value: url" />
                         </div>
-                        <a href="#" class="btn btn-sm btn-light" data-bind="click: $parent.removeTeam">Löschen</a>
+                        <a href="#" class="btn btn-sm btn-light" data-bind="click: $parent.removeTeam"><?= mi18n("REMOVE") ?></a>
                     </div>
                 </div>
             </div>
@@ -154,14 +154,14 @@ $util->getAllJs($absolutePath, $jsFiles);
     </div>
 
     <div class="w-33">
-        <p class="col-title">Aktiv Teams<p>
+        <p class="col-title"><?= mi18n("BLOCK_ONE_TITLE") ?><p>
         <ul class="card sortable list-group" id="sortable-left" data-bind="sortable: { data: teamsLeft, afterMove: myDropCallback }">
             <li class="list-group-item">Team: <strong data-bind="text: name"></strong> <span data-bind="text: team"></span></li>
         </ul>
     </div>
 
     <div class="w-33">
-        <p class="col-title">Junioren Teams (i18n!!)<p>
+        <p class="col-title"><?= mi18n("BLOCK_TWO_TITLE") ?><p>
         <ul class="card sortable list-group" id="sortable-right" data-bind="sortable: { data: teamsRight, afterMove: myDropCallback }">
             <li class="list-group-item">Team: <strong data-bind="text: name"></strong> <span data-bind="text: team"></span></li>
         </ul>
@@ -169,6 +169,6 @@ $util->getAllJs($absolutePath, $jsFiles);
 </div>
 
 <!-- data for Contenido -->
-<input type="text" name="CMS_VAR[10]" id="orderLeft" value="<?php echo $orig_orderLeft; ?>" data-bind="value: $root.saveTeamsLeft()" />
-<input type="text" name="CMS_VAR[11]" id="orderRight" value="<?php echo $orig_orderRight; ?>" data-bind="value: $root.saveTeamsRight()" />
+<input type="hidden" name="CMS_VAR[10]" id="orderLeft" value="<?php echo $orig_orderLeft; ?>" data-bind="value: $root.saveTeamsLeft()" />
+<input type="hidden" name="CMS_VAR[11]" id="orderRight" value="<?php echo $orig_orderRight; ?>" data-bind="value: $root.saveTeamsRight()" />
 <?php

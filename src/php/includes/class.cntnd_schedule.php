@@ -39,12 +39,19 @@ class CntndSchedule {
 
             // todo when there is no team!!
             if (!empty($value['team'])) {
-                $data[$value['team']] = $this->game($value['team'], $value['name'], $home);
-                $data[$value['team']]['data_team'] = $value['name'];
-                $data[$value['team']]['data_url'] = $value['url'];
-                $data[$value['team']]['noData'] = "false";
+                $data = $this->game($value['team'], $value['name'], $home);
+                $data['data_team'] = $value['name'];
+                $data['data_url'] = $value['url'];
+                $data['noData'] = false;
 
-                $game[] = $data[$value['team']];
+                $game[] = $data;
+            }
+            else {
+                $data['data_team'] = $value['name'];
+                $data['data_url'] = $value['url'];
+                $data['noData'] = true;
+
+                $game[] = $data;
             }
         }
         return $game;

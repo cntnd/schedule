@@ -1,17 +1,25 @@
 {if $active}
     <ul class="games">
     {foreach from=$spieleLeft item=spiel name=spieleLeft}
-        {if !$spiel.data_first_team}
-            {include file="cntnd_schedule/template/view_default_team.html" spiel=$spiel}
+        {if $spiel.noData}
+            {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
         {else}
-            {include file="cntnd_schedule/template/view_erste_mannschaft.html" spiel=$spiel}
+            {if !$spiel.data_first_team}
+                {include file="cntnd_schedule/template/view_default_team.html" spiel=$spiel}
+            {else}
+                {include file="cntnd_schedule/template/view_erste_mannschaft.html" spiel=$spiel}
+            {/if}
         {/if}
     {/foreach}
     </ul>
 
     <ul class="games">
         {foreach from=$spieleRight item=spiel name=spieleRight}
-            {include file="cntnd_schedule/template/view_default_team.html" spiel=$spiel}
+            {if $spiel.noData}
+                {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
+            {else}
+                {include file="cntnd_schedule/template/view_default_team.html" spiel=$spiel}
+            {/if}
         {/foreach}
     </ul>
 {else}
