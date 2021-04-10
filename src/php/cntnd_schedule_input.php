@@ -74,7 +74,7 @@ $util->getAllJs($absolutePath, $jsFiles);
         <input id="vereinsnummer" type="text" name="CMS_VAR[5]" value="CMS_VALUE[5]" />
     </div>
 
-    <button class="btn btn-sm"><?= mi18n("MODULE_RESET") ?></button>
+    <button data-bind="click: eraseTeams" class="btn btn-light" type="submit"><?= mi18n("MODULE_RESET") ?></button>
 </div>
 
 <hr />
@@ -89,7 +89,6 @@ $util->getAllJs($absolutePath, $jsFiles);
                 </div>
                 <button data-bind="click: addTeam" class="btn btn-sm btn-primary"><?= mi18n("ADD") ?></button>
                 <button data-bind="click: resetTeams" class="btn btn-sm"><?= mi18n("RESET") ?></button>
-                <button data-bind="click: eraseTeams" class="btn btn-sm btn-light"><?= mi18n("REMOVE") ?></button>
             </div>
         </div>
 
@@ -114,14 +113,12 @@ $util->getAllJs($absolutePath, $jsFiles);
                             <label for="url"><?= mi18n("TEAM_URL") ?></label>
                             <input type="text" class="form-control form-control-sm" id="url" placeholder="<?= mi18n("TEAM_URL") ?>" data-bind="value: url" />
                         </div>
-
                         <div class="form-group">
                             <div class=" form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="firstTeam" value="true" data-bind="checked: firstTeam">
                                 <label class="form-check-label" for="firstTeam"><?= mi18n("FIRST_TEAM") ?></label>
                             </div>
                         </div>
-
                         <button class="btn btn-sm btn-light" data-bind="click: $parent.removeTeam"><?= mi18n("REMOVE") ?></button>
                     </div>
                 </div>
@@ -144,6 +141,12 @@ $util->getAllJs($absolutePath, $jsFiles);
                         <div class="form-group">
                             <label for="url"><?= mi18n("TEAM_URL") ?></label>
                             <input type="text" class="form-control form-control-sm" id="url" placeholder="<?= mi18n("TEAM_URL") ?>" data-bind="value: url" />
+                        </div>
+                        <div class="form-group">
+                            <div class=" form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="customTeam" value="true" data-bind="checked: customTeam">
+                                <label class="form-check-label" for="customTeam"><?= mi18n("CUSTOM_TEAM") ?></label>
+                            </div>
                         </div>
                         <a href="#" class="btn btn-sm btn-light" data-bind="click: $parent.removeTeam"><?= mi18n("REMOVE") ?></a>
                     </div>

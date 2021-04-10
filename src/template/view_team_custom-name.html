@@ -9,8 +9,7 @@
     <span class="game__date-time">{$spiel.data_full_date}</span>
     <span class="game__place">{$spiel.Spielort}</span>
     <span class="game__teams">
-        KiFu-Turnier {$spiel.TeamnameA}
+        {$spiel.CustomTeamA} – {$spiel.CustomTeamB}
         {if $spiel.SpielTyp neq ''}<span class="game__type">{$spiel.SpielTyp}</span>{/if}
     </span>
-    {if $spiel.bemerkungen neq ''}<span class="game__description">{$spiel.bemerkungen}</span>{/if}
 </li>

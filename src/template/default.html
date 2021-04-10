@@ -5,7 +5,7 @@
             {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
         {else}
             {if !$spiel.data_first_team}
-                {include file="cntnd_schedule/template/view_default_team.html" spiel=$spiel}
+                {include file="cntnd_schedule/template/view_team_default.html" spiel=$spiel}
             {else}
                 {include file="cntnd_schedule/template/view_erste_mannschaft.html" spiel=$spiel}
             {/if}
@@ -18,7 +18,11 @@
             {if $spiel.noData}
                 {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
             {else}
-                {include file="cntnd_schedule/template/view_default_team.html" spiel=$spiel}
+                {if !$spiel.data_custom_team}
+                    {include file="cntnd_schedule/template/view_team_default.html" spiel=$spiel}
+                {else}
+                    {include file="cntnd_schedule/template/view_custom_team.html" spiel=$spiel}
+                {/if}
             {/if}
         {/foreach}
     </ul>
