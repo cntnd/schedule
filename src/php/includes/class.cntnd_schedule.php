@@ -92,11 +92,11 @@ class CntndSchedule {
             $TeamnameA = $this->db->f("TeamnameA");
             $TeamB = $this->db->f("TeamnameB");
             $TeamnameB = $this->db->f("TeamnameB");
-            if ($this->db->f("VereinsnummerA") == '10330') {
+            if ($this->db->f("VereinsnummerA") == $this->vereinsnummer) {
                 $TeamA = $CustomTeam;
                 $TeamnameA = $this->vereinsname;
             }
-            if ($this->db->f("VereinsnummerB") == '10330') {
+            if ($this->db->f("VereinsnummerB") == $this->vereinsnummer) {
                 $TeamB = $CustomTeam;
                 $TeamnameB = $this->vereinsname;
             }
@@ -116,9 +116,9 @@ class CntndSchedule {
                 'data_full_date' => strftime('%A, %e. %B %G', $date) . ' ' . $Spielzeit . ' Uhr',
                 'data_datum' => $spiel_datum,
                 'data_zeit' => $Spielzeit,
-                'data_ort' => $this->db->f("Spielort"),
+                'data_spiel_typ' => $SpielTyp,
                 'Spielort' => $this->db->f("Spielort"),
-                'SpielTyp' => $SpielTyp,
+                'SpielTyp' => $spiel_typ,
                 'Bezeichnung' => $this->db->f("Bezeichnung"),
                 'TagKurz' => $TagKurz,
                 'Spieldatum' => $Spieldatum,
@@ -157,11 +157,11 @@ class CntndSchedule {
             $TeamnameA = $this->db->f("TeamnameA");
             $TeamB = $this->db->f("TeamnameB");
             $TeamnameB = $this->db->f("TeamnameB");
-            if ($this->db->f("VereinsnummerA") == '10330') {
+            if ($this->db->f("VereinsnummerA") == $this->vereinsnummer) {
                 $TeamA = $CustomTeam;
                 $TeamnameA = $this->vereinsname;
             }
-            if ($this->db->f("VereinsnummerB") == '10330') {
+            if ($this->db->f("VereinsnummerB") == $this->vereinsnummer) {
                 $TeamB = $CustomTeam;
                 $TeamnameB = $this->vereinsname;
             }
