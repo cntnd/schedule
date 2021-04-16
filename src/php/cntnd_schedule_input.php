@@ -6,6 +6,9 @@ $orig_orderLeft   = "CMS_VALUE[10]";
 $orig_orderRight  = "CMS_VALUE[11]";
 $orderLeft        = html_entity_decode($orig_orderLeft,ENT_QUOTES);
 $orderRight       = html_entity_decode($orig_orderRight,ENT_QUOTES);
+$tables = array(
+    "default" => "spielplan",
+    "custom" => "spielplan_kifu");
 
 // includes
 cInclude('module', 'includes/script.cntnd_schedule_input.php');
@@ -18,14 +21,14 @@ $module = new cModuleHandler($cCurrentModule);
 $absolutePath = $module->getModulePath();
 
 // init all teams
-$sql = "SELECT DISTINCT Team FROM spielplan ORDER BY Team";
+$sql = "SELECT DISTINCT Team FROM ".$tables['default']." ORDER BY Team";
 $ret = $conDb->query($sql);
 $scheduleTeams='';
 while ($conDb->next_record()) {
     $scheduleTeams = $scheduleTeams.'{team:"'.$conDb->f('Team').'",side:"left"},';
 }
 // custom teams
-$sql = "SELECT DISTINCT Team FROM spielplan_kifu ORDER BY Team";
+$sql = "SELECT DISTINCT Team FROM ".$tables['custom']." ORDER BY Team";
 $ret = $conDb->query($sql);
 while ($conDb->next_record()) {
     $scheduleTeams = $scheduleTeams.'{team:"'.$conDb->f('Team').'",side:"left"},';

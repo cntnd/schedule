@@ -7,16 +7,18 @@ class CntndSchedule {
 
     private $db;
 
+    private $tables;
     private $vereinsname;
     private $vereinsnummer;
     private $orderBlockOne;
     private $orderBlockTwo;
 
-    function __construct(string $vereinsname, string $vereinsnummer, string $rawOrderBlockOne, string $rawOrderBlockTwo) {
+    function __construct(array $tables, string $vereinsname, string $vereinsnummer, string $rawOrderBlockOne, string $rawOrderBlockTwo) {
         setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'deu_deu');
 
         $this->db = new cDb;
 
+        $this->tables = $tables;
         $this->vereinsname = $vereinsname;
         $this->vereinsnummer = $vereinsnummer;
         $this->orderBlockOne = json_decode(html_entity_decode($rawOrderBlockOne,ENT_QUOTES), true);;
@@ -65,14 +67,14 @@ class CntndSchedule {
 
     private function game(string $Team, string $CustomTeam, bool $home = true) : array {
         if ($home){
-            $sql = "SELECT * FROM spielplan WHERE Team = ':team' AND VereinsnummerA = ':vereinsnummer' AND Spieldatum >= ':spieldatum' AND Spielstatus IS NULL ORDER BY Spieldatum ASC LIMIT 0, 1";
+            $sql = "SELECT * FROM ".$this->tables['default']." WHERE Team = ':team' AND VereinsnummerA = ':vereinsnummer' AND Spieldatum >= ':spieldatum' AND Spielstatus IS NULL ORDER BY Spieldatum ASC LIMIT 0, 1";
             $values = array(
                 "team" => $Team,
                 "vereinsnummer" => $this->vereinsnummer,
                 "spieldatum" => date("Y-m-d"));
         }
         else {
-            $sql = "SELECT * FROM spielplan WHERE Team = ':team' AND Spieldatum >= ':spieldatum' AND Spielstatus IS NULL ORDER BY Spieldatum ASC LIMIT 0, 1";
+            $sql = "SELECT * FROM ".$this->tables['default']." WHERE Team = ':team' AND Spieldatum >= ':spieldatum' AND Spielstatus IS NULL ORDER BY Spieldatum ASC LIMIT 0, 1";
             $values = array(
                 "team" => $Team,
                 "spieldatum" => date("Y-m-d"));
@@ -110,28 +112,34 @@ class CntndSchedule {
             }
 
             $spiel = array(
-                'Team' => $this->db->f("Team"),
                 'data_first_team' => !$home,
                 'data_custom_team' => false,
                 'data_full_date' => strftime('%A, %e. %B %G', $date) . ' ' . $Spielzeit . ' Uhr',
                 'data_datum' => $spiel_datum,
                 'data_zeit' => $Spielzeit,
                 'data_spiel_typ' => $SpielTyp,
-                'Spielort' => $this->db->f("Spielort"),
+                'Team' => $this->db->f("Team"),
                 'SpielTyp' => $spiel_typ,
+                'Spielstatus' => $this->db->f("Spielstatus"),
                 'Bezeichnung' => $this->db->f("Bezeichnung"),
+                'Spielnummer' => $this->db->f("Spielnummer"),
                 'TagKurz' => $TagKurz,
                 'Spieldatum' => $Spieldatum,
                 'Spielzeit' => $Spielzeit,
-                'Spielnummer' => $this->db->f("Spielnummer"),
+                'TeamnameA' => $this->db->f("TeamnameA"),
+                'TeamLigaA' => $this->db->f("TeamLigaA"),
+                'VereinsnummerA' => $this->db->f("VereinsnummerA"),
                 'TeamA' => $TeamnameA,
                 'CustomTeamA' => $TeamA,
-                'TeamnameA' => $this->db->f("TeamnameA"),
-                'VereinsnummerA' => $this->db->f("VereinsnummerA"),
+                'TeamnameB' => $this->db->f("TeamnameB"),
+                'TeamLigaB' => $this->db->f("TeamLigaB"),
+                'VereinsnummerB' => $this->db->f("VereinsnummerB"),
                 'TeamB' => $TeamnameB,
                 'CustomTeamB' => $TeamB,
-                'TeamnameB' => $this->db->f("TeamnameB"),
-                'VereinsnummerB' => $this->db->f("VereinsnummerB")
+                'Spielort' => $this->db->f("Spielort"),
+                'Sportanlage' => $this->db->f("Spielort"),
+                'Ort' => $this->db->f("Spielort"),
+                'Wettspielfeld' => $this->db->f("Spielort")
             );
         }
 
@@ -139,7 +147,7 @@ class CntndSchedule {
     }
 
     private function customGame(string $Team, string $CustomTeam) : array {
-        $sql = "SELECT * FROM spielplan_kifu WHERE Team = ':team' AND Spieldatum >= ':spieldatum' AND Spielstatus IS NULL ORDER BY Spieldatum ASC LIMIT 0, 1";
+        $sql = "SELECT * FROM ".$this->tables['custom']." WHERE Team = ':team' AND Spieldatum >= ':spieldatum' AND Spielstatus IS NULL ORDER BY Spieldatum ASC LIMIT 0, 1";
         $values = array(
             "team" => $Team,
             "spieldatum" => date("Y-m-d"));
@@ -175,29 +183,35 @@ class CntndSchedule {
             }
 
             $spiel = array(
-                'Team' => $this->db->f("Team"),
                 'data_first_team' => false,
                 'data_custom_team' => true,
                 'data_full_date' => strftime('%A, %e. %B %G', $date) . ' ' . $Spielzeit . ' Uhr',
                 'data_datum' => $spiel_datum,
                 'data_zeit' => $Spielzeit,
                 'data_ort' => $this->db->f("Spielort"),
-                'bemerkungen' => $this->db->f("bemerkungen"),
-                'Spielort' => $this->db->f("Spielort"),
+                'Team' => $this->db->f("Team"),
                 'SpielTyp' => $SpielTyp,
+                'Spielstatus' => $this->db->f("Spielstatus"),
                 'Bezeichnung' => $this->db->f("Bezeichnung"),
+                'Spielnummer' => $this->db->f("Spielnummer"),
                 'TagKurz' => $TagKurz,
                 'Spieldatum' => $Spieldatum,
                 'Spielzeit' => $Spielzeit,
-                'Spielnummer' => $this->db->f("Spielnummer"),
+                'TeamnameA' => $this->db->f("TeamnameA"),
+                'TeamLigaA' => $this->db->f("TeamLigaA"),
+                'VereinsnummerA' => $this->db->f("VereinsnummerA"),
                 'TeamA' => $TeamnameA,
                 'CustomTeamA' => $TeamA,
-                'TeamnameA' => $this->db->f("TeamnameA"),
-                'VereinsnummerA' => $this->db->f("VereinsnummerA"),
+                'TeamnameB' => $this->db->f("TeamnameB"),
+                'TeamLigaB' => $this->db->f("TeamLigaB"),
+                'VereinsnummerB' => $this->db->f("VereinsnummerB"),
                 'TeamB' => $TeamnameB,
                 'CustomTeamB' => $TeamB,
-                'TeamnameB' => $this->db->f("TeamnameB"),
-                'VereinsnummerB' => $this->db->f("VereinsnummerB")
+                'Spielort' => $this->db->f("Spielort"),
+                'Sportanlage' => $this->db->f("Spielort"),
+                'Ort' => $this->db->f("Spielort"),
+                'Wettspielfeld' => $this->db->f("Spielort"),
+                'bemerkungen' => $this->db->f("bemerkungen")
             );
         }
 

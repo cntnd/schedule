@@ -12,11 +12,15 @@ $vereinsnummer    = "CMS_VALUE[5]";
 $blockOne         = "CMS_VALUE[10]";
 $blockTwo         = "CMS_VALUE[11]";
 
+$tables = array(
+    "default" => "spielplan",
+    "custom" => "spielplan_kifu");
+
 // includes
 cInclude('module', 'includes/class.cntnd_schedule.php');
 
 // other/vars
-$schedule = new CntndSchedule($vereinsname, $vereinsnummer, $blockOne, $blockTwo);
+$schedule = new CntndSchedule($tables, $vereinsname, $vereinsnummer, $blockOne, $blockTwo);
 
 // laden der daten
 $spieleLeft = $schedule->blockOne();
