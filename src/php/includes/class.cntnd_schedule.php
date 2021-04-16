@@ -137,9 +137,9 @@ class CntndSchedule {
                 'TeamB' => $TeamnameB,
                 'CustomTeamB' => $TeamB,
                 'Spielort' => $this->db->f("Spielort"),
-                'Sportanlage' => $this->db->f("Spielort"),
-                'Ort' => $this->db->f("Spielort"),
-                'Wettspielfeld' => $this->db->f("Spielort")
+                'Sportanlage' => $this->db->f("Sportanlage"),
+                'Ort' => $this->db->f("Ort"),
+                'Wettspielfeld' => $this->db->f("Wettspielfeld")
             );
         }
 
@@ -189,8 +189,9 @@ class CntndSchedule {
                 'data_datum' => $spiel_datum,
                 'data_zeit' => $Spielzeit,
                 'data_ort' => $this->db->f("Spielort"),
+                'data_spiel_typ' => $SpielTyp,
                 'Team' => $this->db->f("Team"),
-                'SpielTyp' => $SpielTyp,
+                'SpielTyp' => $spiel_typ,
                 'Spielstatus' => $this->db->f("Spielstatus"),
                 'Bezeichnung' => $this->db->f("Bezeichnung"),
                 'Spielnummer' => $this->db->f("Spielnummer"),
@@ -208,9 +209,9 @@ class CntndSchedule {
                 'TeamB' => $TeamnameB,
                 'CustomTeamB' => $TeamB,
                 'Spielort' => $this->db->f("Spielort"),
-                'Sportanlage' => $this->db->f("Spielort"),
-                'Ort' => $this->db->f("Spielort"),
-                'Wettspielfeld' => $this->db->f("Spielort"),
+                'Sportanlage' => $this->db->f("Sportanlage"),
+                'Ort' => $this->db->f("Ort"),
+                'Wettspielfeld' => $this->db->f("Wettspielfeld"),
                 'bemerkungen' => $this->db->f("bemerkungen")
             );
         }
