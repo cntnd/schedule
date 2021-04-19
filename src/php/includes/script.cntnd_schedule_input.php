@@ -65,13 +65,11 @@
             };
 
             self.resetTeams = function(){
-                var mappedTeamsOne = $.map(teamsBlockOne, function(item) { return new Team(item) });
-                self.blockOne(mappedTeamsOne);
-                var mappedTeamsTwo = $.map(teamsBlockTwo, function(item) { return new Team(item) });
-                self.blockTwo(mappedTeamsTwo);
-                var mappedTeamsThree = $.map(teamsBlockThree, function(item) { return new Team(item) });
-                self.blockThree(mappedTeamsThree);
+                self.blockOne($.map(teamsBlockOne, function(item) { return new Team(item) }));
+                self.blockTwo($.map(teamsBlockTwo, function(item) { return new Team(item) }));
+                self.blockThree($.map(teamsBlockThree, function(item) { return new Team(item) }));
             };
+
             self.eraseTeams = function(){
                 self.blockOne([]);
                 self.blockTwo([]);
@@ -79,20 +77,16 @@
             };
 
             if (teamsBlockOne!==undefined && !$.isEmptyObject(teamsBlockOne)) {
-                var mappedTeams = $.map(teamsBlockOne, function(item) { return new Team(item) });
-                self.blockOne(mappedTeams);
+                self.blockOne($.map(teamsBlockOne, function(item) { return new Team(item) }));
             }
             else if (!$.isEmptyObject(self.availableTeams)) {
-                var mappedTeams = $.map(self.availableTeams, function(item) { return new Team(item) });
-                self.blockOne(mappedTeams);
+                self.blockOne($.map(self.availableTeams, function(item) { return new Team(item) }));
             }
             if (teamsBlockTwo!==undefined) {
-                var mappedTeams = $.map(teamsBlockTwo, function(item) { return new Team(item) });
-                self.blockTwo(mappedTeams);
+                self.blockTwo($.map(teamsBlockTwo, function(item) { return new Team(item) }));
             }
             if (teamsBlockThree!==undefined) {
-                var mappedTeams = $.map(teamsBlockThree, function(item) { return new Team(item) });
-                self.blockThree(mappedTeams);
+                self.blockThree($.map(teamsBlockThree, function(item) { return new Team(item) }));
             }
         }
 
