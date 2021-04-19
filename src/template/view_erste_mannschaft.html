@@ -1,3 +1,6 @@
+<!--
+
+-->
 <li class="game game--first-team">
     <span class="game__team">
         {if $spiel.data_url neq ''}
@@ -7,7 +10,7 @@
         {/if}
     </span>
     <span class="game__date-time">{$spiel.data_full_date}</span>
-    <span class="game__place">{$spiel.Wettspielfeld}</span>
+    <span class="game__place">{$spiel.Spielort}</span>
     <span class="game__teams">
         {$spiel.TeamnameA} – {$spiel.TeamnameB}
         {if $spiel.data_spiel_typ neq ''}<span class="game__type">{$spiel.data_spiel_typ}</span>{/if}

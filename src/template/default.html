@@ -1,32 +1,63 @@
 {if $active}
+    <!-- AKTIVE -->
+    <h3>Aktive</h3>
     <ul class="games">
-    {foreach from=$spieleLeft item=spiel name=spieleLeft}
-        {if $spiel.noData}
-            {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
-        {else}
+    {foreach from=$gamesBlockOne item=spiel name=gamesBlockOne}
+        <!--
+            $spiel.noData == Kein Spiel => WAHR => Keine Daten
+            !$spiel.noData == Kein Spiel => NICHT WAHR => Daten vorhanden
+        -->
+        {if !$spiel.noData}
+            <!-- DATEN VORHANDEN - SPIEL WIRD ANGEZEIGT -->
             {if !$spiel.data_first_team}
                 {include file="cntnd_schedule/template/view_team_default.html" spiel=$spiel}
             {else}
                 {include file="cntnd_schedule/template/view_erste_mannschaft.html" spiel=$spiel}
             {/if}
+        {else}
+            <!-- KEINE DATEN VORHANDEN - INFO WIRD ANGEZEIGT -->
+            {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
         {/if}
     {/foreach}
     </ul>
 
+    <!-- JUNIOREN -->
+    <h3>Junioren</h3>
     <ul class="games">
-        {foreach from=$spieleRight item=spiel name=spieleRight}
-            {if $spiel.noData}
-                {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
-            {else}
+        {foreach from=$gamesBlockTwo item=spiel name=gamesBlockTwo}
+            {if !$spiel.noData}
+                <!-- DATEN VORHANDEN - SPIEL WIRD ANGEZEIGT -->
                 {if !$spiel.data_custom_team}
                     {include file="cntnd_schedule/template/view_team_default.html" spiel=$spiel}
                 {else}
                     {include file="cntnd_schedule/template/view_custom_team.html" spiel=$spiel}
                 {/if}
+            {else}
+                 <!-- KEINE DATEN VORHANDEN - INFO WIRD ANGEZEIGT -->
+                {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
+            {/if}
+        {/foreach}
+    </ul>
+
+    <!-- KIFU -->
+    <h3>Kinderfussball</h3>
+    <ul class="games">
+        {foreach from=$gamesBlockThree item=spiel name=gamesBlockThree}
+            {if !$spiel.noData}
+                <!-- DATEN VORHANDEN - SPIEL WIRD ANGEZEIGT -->
+                {if !$spiel.data_custom_team}
+                    {include file="cntnd_schedule/template/view_team_default.html" spiel=$spiel}
+                {else}
+                    {include file="cntnd_schedule/template/view_custom_team.html" spiel=$spiel}
+                {/if}
+            {else}
+                <!-- KEINE DATEN VORHANDEN - INFO WIRD ANGEZEIGT -->
+                {include file="cntnd_schedule/template/view_team_no-data.html" spiel=$spiel}
             {/if}
         {/foreach}
     </ul>
     <p><small>* = Testspiel / (C) = Cupspiel</small></p>
 {else}
+    <!-- WENN MODULE DEAKTIVIERT -->
     <strong>Momentan keine Spiele</strong>
 {/if}

@@ -9,8 +9,14 @@ $moduleActive     = "CMS_VALUE[3]";
 $vereinsname      = "CMS_VALUE[4]";
 $vereinsnummer    = "CMS_VALUE[5]";
 
+$dateRanges = array(
+    "dateRangeBlockOne"    => "CMS_VALUE[6]",
+    "dateRangeBlockTwo"    => "CMS_VALUE[7]",
+    "dateRangeBlockCustom" => "CMS_VALUE[8]");
+
 $blockOne         = "CMS_VALUE[10]";
 $blockTwo         = "CMS_VALUE[11]";
+$blockThree       = "CMS_VALUE[12]";
 
 $tables = array(
     "default" => "spielplan",
@@ -20,16 +26,18 @@ $tables = array(
 cInclude('module', 'includes/class.cntnd_schedule.php');
 
 // other/vars
-$schedule = new CntndSchedule($tables, $vereinsname, $vereinsnummer, $blockOne, $blockTwo);
+$schedule = new CntndSchedule($tables, $dateRanges, $vereinsname, $vereinsnummer, $blockOne, $blockTwo, $blockThree);
 
 // laden der daten
-$spieleLeft = $schedule->blockOne();
-$spieleRight = $schedule->blockTwo();
+$gamesBlockOne = $schedule->blockOne();
+$gamesBlockTwo = $schedule->blockTwo();
+$gamesBlockThree = $schedule->blockThree();
 
 // smarty
 $smarty = cSmartyFrontend::getInstance();
-$smarty->assign('spieleLeft', $spieleLeft);
-$smarty->assign('spieleRight', $spieleRight);
+$smarty->assign('gamesBlockOne', $gamesBlockOne);
+$smarty->assign('gamesBlockTwo', $gamesBlockTwo);
+$smarty->assign('gamesBlockThree', $gamesBlockThree);
 $smarty->assign('active', $moduleActive);
 $smarty->display('default.html');
 ?>

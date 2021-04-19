@@ -12,8 +12,9 @@
             this.team = ko.observable(data.team);
             this.firstTeam = ko.observable(data.firstTeam);
             this.customTeam = ko.observable(data.customTeam);
+            this.homeOnly = ko.observable(data.homeOnly);
             if (data.side===undefined){
-                this.side = ko.observable('left');
+                this.side = ko.observable('one');
             }
             else {
                 this.side = ko.observable(data.side);
@@ -28,53 +29,70 @@
             self.availableTeams = scheduleTeams;
 
             // Sortable
-            self.teamsLeft = ko.observableArray([]);
-            self.teamsLeft.id='left';
-            self.saveTeamsLeft = function(){ return ko.toJSON(self.teamsLeft); };
-            self.teamsRight = ko.observableArray([]);
-            self.teamsRight.id='right';
-            self.saveTeamsRight = function(){ return ko.toJSON(self.teamsRight); };
+            self.blockOne = ko.observableArray([]);
+            self.blockOne.id='one';
+            self.saveBlockOne = function(){ return ko.toJSON(self.blockOne); };
+
+            self.blockTwo = ko.observableArray([]);
+            self.blockTwo.id='two';
+            self.saveBlockTwo = function(){ return ko.toJSON(self.blockTwo); };
+
+            self.blockThree = ko.observableArray([]);
+            self.blockThree.id='three';
+            self.saveBlockThree = function(){ return ko.toJSON(self.blockThree); };
 
             self.myDropCallback = function (arg) {
                 arg.item.side(arg.targetParent.id);
                 arg.item.index(arg.targetIndex);
-                if (console) {
-                    console.log("Moved '" + arg.item.name() + "' from " + arg.sourceParent.id + " (index: " + arg.sourceIndex + ") to " + arg.targetParent.id + " (index " + arg.targetIndex + ")");
-                }
             };
 
             // Operations
             self.addTeam = function() {
-                self.teamsLeft.push(new Team({ name: this.newTeamText() }));
+                self.blockOne.push(new Team({ name: this.newTeamText() }));
                 self.newTeamText('');
             };
 
-            self.removeTeam = function(team) { self.teamsLeft.remove(team) };
+            self.removeTeamOne = function(team) {
+                self.blockOne.remove(team)
+            };
+
+            self.removeTeamTwo = function(team) {
+                self.blockTwo.remove(team)
+            };
+
+            self.removeTeamThree = function(team) {
+                self.blockThree.remove(team)
+            };
 
             self.resetTeams = function(){
-                var mappedTeamsLeft = $.map(teamsLeftJson, function(item) { return new Team(item) });
-                self.teamsLeft(mappedTeamsLeft);
-                var mappedTeamsRight = $.map(teamsRightJson, function(item) { return new Team(item) });
-                self.teamsRight(mappedTeamsRight);
+                var mappedTeamsOne = $.map(teamsBlockOne, function(item) { return new Team(item) });
+                self.blockOne(mappedTeamsOne);
+                var mappedTeamsTwo = $.map(teamsBlockTwo, function(item) { return new Team(item) });
+                self.blockTwo(mappedTeamsTwo);
+                var mappedTeamsThree = $.map(teamsBlockThree, function(item) { return new Team(item) });
+                self.blockThree(mappedTeamsThree);
             };
             self.eraseTeams = function(){
-                self.teamsLeft([]);
-                self.teamsRight([]);
+                self.blockOne([]);
+                self.blockTwo([]);
+                self.blockThree([]);
             };
 
-            // Load initial state from server, convert it to Team instances, then populate self.tasks
-            console.log(teamsLeftJson, $.isEmptyObject(teamsLeftJson));
-            if (teamsLeftJson!==undefined && !$.isEmptyObject(teamsLeftJson)) {
-                var mappedTeamsLeft = $.map(teamsLeftJson, function(item) { return new Team(item) });
-                self.teamsLeft(mappedTeamsLeft);
+            if (teamsBlockOne!==undefined && !$.isEmptyObject(teamsBlockOne)) {
+                var mappedTeams = $.map(teamsBlockOne, function(item) { return new Team(item) });
+                self.blockOne(mappedTeams);
             }
             else if (!$.isEmptyObject(self.availableTeams)) {
-                var mappedTeamsLeft = $.map(self.availableTeams, function(item) { return new Team(item) });
-                self.teamsLeft(mappedTeamsLeft);
+                var mappedTeams = $.map(self.availableTeams, function(item) { return new Team(item) });
+                self.blockOne(mappedTeams);
             }
-            if (teamsRightJson!==undefined) {
-                var mappedTeamsRight = $.map(teamsRightJson, function(item) { return new Team(item) });
-                self.teamsRight(mappedTeamsRight);
+            if (teamsBlockTwo!==undefined) {
+                var mappedTeams = $.map(teamsBlockTwo, function(item) { return new Team(item) });
+                self.blockTwo(mappedTeams);
+            }
+            if (teamsBlockThree!==undefined) {
+                var mappedTeams = $.map(teamsBlockThree, function(item) { return new Team(item) });
+                self.blockThree(mappedTeams);
             }
         }
 
