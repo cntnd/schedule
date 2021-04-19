@@ -10,7 +10,13 @@ REMOVE=Löschen
 CHOOSE_TEAM=-Bitte Team auswählen-
 TEAM_NAME=Name
 TEAM_URL=URL auf football.ch
+TEAM_HOME_ONLY=Nur Heimspiele
 FIRST_TEAM=1. Mannschaft
 CUSTOM_TEAM=KiFu Team
 BLOCK_ONE_TITLE=Aktiv Teams
 BLOCK_TWO_TITLE=Junioren Teams
+BLOCK_THREE_TITLE=KiFu Teams
+DATERANGE_BLOCK_ONE=Zeitspanne der Anzeige der Aktiv Teams
+DATERANGE_BLOCK_TWO=Zeitspanne der Anzeige der Junioren Teams
+DATERANGE_BLOCK_CUSTOM=Zeitspanne der Anzeige der KiFu Teams (aus CSV)
+DATERANGE_HELP=Zeitspanne in Tagen ab aktuellem Tag (0 oder kein Wert = wird ignoriert)
