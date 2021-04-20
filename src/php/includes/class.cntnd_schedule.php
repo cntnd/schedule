@@ -103,7 +103,7 @@ class CntndSchedule {
         }
 
         if (!empty($dateRange)){
-            $values['spieldatum_bis']=$dateRange;
+            $values['datum_bis']=$dateRange;
         }
 
         $this->db->query($sql, $values);
@@ -185,7 +185,7 @@ class CntndSchedule {
         }
 
         if (!empty($dateRange)){
-            $values['spieldatum_bis']=$dateRange;
+            $values['datum_bis']=$dateRange;
         }
 
         $this->db->query($sql, $values);
@@ -265,7 +265,7 @@ class CntndSchedule {
         $sql = "SELECT * FROM ".$table." WHERE Team = ':team' AND Spieldatum >= ':spieldatum' ";
 
         if ($dateRange){
-            $sql .= " AND Spieldatum < ':spieldatum_bis' ";
+            $sql .= " AND Spieldatum < ':datum_bis' ";
         }
 
         if ($home && !$isCustom){
