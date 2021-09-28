@@ -11,12 +11,13 @@ class CntndSchedule {
     private $dateRanges;
     private $vereinsname;
     private $vereinsnummer;
+    private $hasCustomTeams;
 
     private $orderBlockOne;
     private $orderBlockTwo;
     private $orderBlockThree;
 
-    function __construct(array $tables, array $dateRanges, string $vereinsname, string $vereinsnummer, string $rawOrderBlockOne, string $rawOrderBlockTwo, string $rawOrderBlockThree) {
+    function __construct(array $tables, array $dateRanges, string $vereinsname, string $vereinsnummer, string $rawOrderBlockOne, string $rawOrderBlockTwo, string $rawOrderBlockThree, bool $hasCustomTeams) {
         setlocale(LC_ALL, 'de_DE@euro', 'de_DE', 'deu_deu');
 
         $this->db = new cDb;
@@ -25,6 +26,7 @@ class CntndSchedule {
         $this->dateRanges = $this->doDateRange($dateRanges);
         $this->vereinsname = $vereinsname;
         $this->vereinsnummer = $vereinsnummer;
+        $this->hasCustomTeams = $hasCustomTeams;
         $this->orderBlockOne = json_decode(html_entity_decode($rawOrderBlockOne,ENT_QUOTES), true);
         $this->orderBlockTwo = json_decode(html_entity_decode($rawOrderBlockTwo,ENT_QUOTES), true);
         $this->orderBlockThree = json_decode(html_entity_decode($rawOrderBlockThree,ENT_QUOTES), true);
@@ -61,7 +63,10 @@ class CntndSchedule {
             $data = array();
             $firstTeam = $value['firstTeam'] ? true : false;
             $home = $value['homeOnly'] ? true : false;
-            $custom = $value['customTeam'] ? true : false;
+            $custom = false;
+            if ($this->hasCustomTeams){
+                $custom = $value['customTeam'] ? true : false;
+            }
 
             if (!empty($value['team'])) {
                 if (!$custom) {
