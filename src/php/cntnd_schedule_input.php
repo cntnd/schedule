@@ -2,6 +2,10 @@
 // cntnd_schedule_input
 
 // input/vars
+$hasCustomTeams   = "CMS_VALUE[9]";
+if (!is_bool($hasCustomTeams)){
+    $hasCustomTeams=false;
+}
 $orig_blockOne   = "CMS_VALUE[10]";
 $orig_blockTwo  = "CMS_VALUE[11]";
 $orig_blockThree  = "CMS_VALUE[12]";
@@ -18,7 +22,7 @@ cInclude('module', 'includes/class.cntndutil.php');
 
 // classes
 $conDb = new cDb;
-$util = new CntndUtil();
+$util = new CntndUtilLegacy();
 $module = new cModuleHandler($cCurrentModule);
 $absolutePath = $module->getModulePath();
 
@@ -27,18 +31,21 @@ $sql = "SELECT DISTINCT Team FROM ".$tables['default']." ORDER BY Team";
 $ret = $conDb->query($sql);
 $scheduleTeams='';
 while ($conDb->next_record()) {
-    $scheduleTeams = $scheduleTeams.'{team:"'.$conDb->f('Team').'",side:"left"},';
+    $scheduleTeams = $scheduleTeams.'{team:"'.$conDb->f('Team').'",side:"one"},';
 }
 // custom teams
 $customTeams = array();
-$sql = "SELECT DISTINCT Team FROM ".$tables['custom']." ORDER BY Team";
-$ret = $conDb->query($sql);
-while ($conDb->next_record()) {
-    $team = $conDb->f('Team');
-    $scheduleTeams = $scheduleTeams.'{team:"'.$team.'",side:"left"},';
-    $customTeams[]=$team;
+if ($hasCustomTeams) {
+    $sql = "SELECT DISTINCT Team FROM " . $tables['custom'] . " ORDER BY Team";
+    $ret = $conDb->query($sql);
+    while ($conDb->next_record()) {
+        $team = $conDb->f('Team');
+        $scheduleTeams = $scheduleTeams . '{team:"' . $team . '",side:"one",customTeam:true},';
+        $customTeams[] = $team;
+    }
 }
-$scheduleTeams = '['.substr($scheduleTeams,0,-1).']';
+
+$scheduleTeams = '[' . substr($scheduleTeams, 0, -1) . ']';
 
 $teamsBlockOne='[]';
 if ($util->isJson($blockOne)){
@@ -87,6 +94,13 @@ $util->getAllJs($absolutePath, $jsFiles);
         <input id="vereinsnummer" type="text" name="CMS_VAR[5]" value="CMS_VALUE[5]" />
     </div>
 
+    <div class="form-group">
+        <div class="form-check form-check-inline">
+            <input id="activate_module" class="form-check-input" type="checkbox" name="CMS_VAR[9]" value="true" <?php if("CMS_VALUE[9]"=='true'){ echo 'checked'; } ?> />
+            <label for="activate_module" class="form-check-label"><?= mi18n("ACTIVATE_CUSTOM_TEAMS") ?></label>
+        </div>
+    </div>
+
     <hr />
 
     <div class="form-group">
@@ -130,7 +144,6 @@ $util->getAllJs($absolutePath, $jsFiles);
                 <div class="card-body">
                     <strong>
                         Team <span data-bind="text: name"></span>
-                        <!-- <span class="expand-button">expand</span> -->
                     </strong>
                     <div class="expand">
                         <div class="form-group">

@@ -3,6 +3,7 @@ ACTIVATE_MODULE=Modul aktivieren
 MODULE_RESET=Modul zurücksetzen
 VEREINSNAME=Vereinsname
 VEREINSNUMMER=SFV Vereinsnummer
+ACTIVATE_CUSTOM_TEAMS=KiFu-Teams aktivieren
 NEW_TEAM=Neues Team
 ADD=Hinzufügen
 RESET=Zurücksetzen

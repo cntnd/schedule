@@ -1,6 +1,6 @@
 <?php
 // util class for cntnd - repos...
-class CntndUtil
+class CntndUtilLegacy
 {
     private $_modulePath;
 

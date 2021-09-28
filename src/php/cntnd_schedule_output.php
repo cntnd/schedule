@@ -8,6 +8,7 @@ defined('CON_FRAMEWORK') || die('Illegal call: Missing framework initialization 
 $moduleActive     = "CMS_VALUE[3]";
 $vereinsname      = "CMS_VALUE[4]";
 $vereinsnummer    = "CMS_VALUE[5]";
+$hasCustomTeams   = "CMS_VALUE[9]";
 
 $dateRanges = array(
     "dateRangeBlockOne"    => "CMS_VALUE[6]",
@@ -26,7 +27,7 @@ $tables = array(
 cInclude('module', 'includes/class.cntnd_schedule.php');
 
 // other/vars
-$schedule = new CntndSchedule($tables, $dateRanges, $vereinsname, $vereinsnummer, $blockOne, $blockTwo, $blockThree);
+$schedule = new CntndSchedule($tables, $dateRanges, $vereinsname, $vereinsnummer, $blockOne, $blockTwo, $blockThree, $hasCustomTeams);
 
 // laden der daten
 $gamesBlockOne = $schedule->blockOne();
