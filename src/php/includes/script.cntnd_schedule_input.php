@@ -92,11 +92,5 @@
         }
 
         ko.applyBindings(new TeamViewModel());
-
-        // ui
-        $(".custom_teams_csv").change(function() {
-            var prop = $(this).val()!="editor";
-            $("#csv_file").prop("disabled",prop);
-        });
     });
 </script>

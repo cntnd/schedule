@@ -13,12 +13,6 @@ $blockThree       = html_entity_decode($orig_blockThree,ENT_QUOTES);
 $tables = array(
     "default" => "spielplan",
     "custom" => "spielplan_kifu");
-$custom_csv = "CMS_VALUE[20]";
-$csv_file  = "CMS_VALUE[21]";
-$separator = "CMS_VALUE[22]";
-if (empty($separator)){
-    $separator=',';
-}
 
 // includes
 cInclude('module', 'includes/script.cntnd_schedule_input.php');
@@ -29,7 +23,7 @@ cInclude('module', 'includes/class.cntnd_schedule_input.php');
 // classes
 $conDb = new cDb;
 $util = new CntndUtilLegacy();
-$cntndSchedule = new CntndScheduleInput($tables, $hasCustomTeams, $custom_csv, $csv_file, $separator, $client);
+$cntndSchedule = new CntndScheduleInput($tables, $hasCustomTeams, $client);
 $module = new cModuleHandler($cCurrentModule);
 $absolutePath = $module->getModulePath();
 
@@ -88,49 +82,9 @@ $util->getAllJs($absolutePath, $jsFiles);
 
         <div class="form-group w-100">
             <div class="form-check form-check-inline">
-                <input id="custom_teams" class="form-check-input disable-dependent" data-disable-dependent="custom_teams_csv" type="checkbox" name="CMS_VAR[9]" value="true" <?php if("CMS_VALUE[9]"=='true'){ echo 'checked'; } ?> />
+                <input id="custom_teams" class="form-check-input" type="checkbox" name="CMS_VAR[9]" value="true" <?php if("CMS_VALUE[9]"=='true'){ echo 'checked'; } ?> />
                 <label for="custom_teams" class="form-check-label"><?= mi18n("ACTIVATE_CUSTOM_TEAMS") ?></label>
             </div>
-
-            <fieldset <?php if (!$hasCustomTeams){ echo "disabled"; } ?> id="custom_teams_csv">
-                <legend><?= mi18n("CUSTOM_TEAMS_CSV") ?></legend>
-
-                <div class="form-check form-check-inline w-100">
-                    <input id="csv_parser" class="form-check-input custom_teams_csv" type="radio" name="CMS_VAR[20]" value="parser" <?php if("CMS_VALUE[20]"=='parser'){ echo 'checked'; } ?> />
-                    <label for="csv_parser" class="form-check-label"><?= mi18n("CUSTOM_TEAMS_CSV_PARSER") ?></label>
-                </div>
-
-                <div class="form-check form-check-inline w-100">
-                    <input id="csv_editor" class="form-check-input custom_teams_csv" type="radio" name="CMS_VAR[20]" value="editor" <?php if("CMS_VALUE[20]"=='editor'){ echo 'checked'; } ?> />
-                    <label for="csv_editor" class="form-check-label"><?= mi18n("CUSTOM_TEAMS_CSV_EDITOR") ?></label>
-                </div>
-
-                <fieldset class="d-flex" id="csv_file" <?php if ($custom_csv!="editor"){ echo "disabled"; } ?>>
-                    <legend><?= mi18n("LABEL_FILE") ?></legend>
-
-                    <div class="form-group" style="margin-right: 12px;">
-                        <label for="filename"><?= mi18n("LABEL_FILE") ?></label>
-                        <select name="CMS_VAR[21]" id="filename" size="1" onchange="this.form.submit()" style="width: auto !important;">
-                            <option value="false"><?= mi18n("SELECT_CHOOSE") ?></option>
-                            <?php
-                            foreach ($cntndSchedule->customTeamsCSVFiles() as $value) {
-                                $selected='';
-                                if ($csv_file==$value['filepath']){
-                                    $selected='selected="selected"';
-                                }
-                                echo '<option value="'.$value['filepath'].'" '.$selected.'>'.$value['filename'].'</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="filename"><?= mi18n("LABEL_SEPARATOR") ?></label>
-                        <input type="text" maxlength="1" name="CMS_VAR[22]" value="<?= $separator ?>"/>
-                    </div>
-                </fieldset>
-
-            </fieldset>
         </div>
     </fieldset>
 
