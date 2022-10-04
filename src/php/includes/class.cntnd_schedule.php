@@ -179,7 +179,7 @@ class CntndSchedule {
     }
 
     private function customGame(string $Team, string $CustomTeam, bool $home = true, string  $dateRange = "") : array {
-        $sql = $sql = $this->statement($home, true, !empty($dateRange));
+        $sql = $this->statement($home, true, !empty($dateRange));
 
         $values = array(
             "team" => $Team,

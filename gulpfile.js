@@ -1,5 +1,5 @@
 var gulp        = require('gulp');
-var sass        = require('gulp-sass');
+var sass        = require('gulp-sass')(require('sass'));
 var minify      = require('gulp-minifier');
 var zip         = require('gulp-zip');
 var file        = require('gulp-file');
@@ -26,13 +26,13 @@ gulp.task('sass', function() {
 });
 
 gulp.task('zip', function() {
-    return gulp.src(['src/**/*','!src/scss*'])
+    return gulp.src(['src/**','!src/{scss,scss/**}','!src/{sql,sql/**}'])
         .pipe(zip(pkg.name+'.zip'))
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('xampp', function () {
-    return gulp.src(['src/**/*','!src/scss*'])
+    return gulp.src(['src/**','!src/{scss,scss/**}','!src/{sql,sql/**}'])
         .pipe(gulp.dest('modules/'+pkg.name));
 });
 
@@ -67,3 +67,5 @@ gulp.task('default', gulp.series('sass','watch'));
 gulp.task('dist', gulp.series('clean','sass','info-xml','zip'));
 
 gulp.task('module', gulp.series('clean','sass','info-xml','xampp'));
+
+gulp.task('init', gulp.series('clean','sass','info-xml'));

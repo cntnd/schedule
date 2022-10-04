@@ -1,9 +1,16 @@
 MODULE=Schedule
 ACTIVATE_MODULE=Modul aktivieren
 MODULE_RESET=Modul zurücksetzen
+VEREIN=Konfiguration Verein
 VEREINSNAME=Vereinsname
 VEREINSNUMMER=SFV Vereinsnummer
 ACTIVATE_CUSTOM_TEAMS=KiFu-Teams aktivieren
+CUSTOM_TEAMS_CSV=KiFu-Teams Quelle
+CUSTOM_TEAMS_CSV_PARSER=CSV-Datei wird mit den football.ch Daten verarbeitet (Parser)
+CUSTOM_TEAMS_CSV_EDITOR=CSV-Datei im Editor bearbeiten
+LABEL_FILE=CSV-Datei
+LABEL_SEPARATOR=CSV Trennzeichen
+SELECT_CHOOSE=-bitte wählen-
 NEW_TEAM=Neues Team
 ADD=Hinzufügen
 RESET=Zurücksetzen
@@ -17,7 +24,8 @@ CUSTOM_TEAM=KiFu Team
 BLOCK_ONE_TITLE=Aktiv Teams
 BLOCK_TWO_TITLE=Junioren Teams
 BLOCK_THREE_TITLE=KiFu Teams
-DATERANGE_BLOCK_ONE=Zeitspanne der Anzeige der Aktiv Teams
-DATERANGE_BLOCK_TWO=Zeitspanne der Anzeige der Junioren Teams
-DATERANGE_BLOCK_CUSTOM=Zeitspanne der Anzeige der KiFu Teams (aus CSV)
-DATERANGE_HELP=Zeitspanne in Tagen ab aktuellem Tag (0 oder kein Wert = wird ignoriert)
+DATERANGE=Anzeige der Zeitspanne
+DATERANGE_BLOCK_ONE=Aktiv Teams
+DATERANGE_BLOCK_TWO=Junioren Teams
+DATERANGE_BLOCK_CUSTOM=KiFu Teams (aus CSV)
+DATERANGE_HELP=Zeitspanne in Tagen ab aktuellem Tag (0 oder kein Wert \= wird ignoriert)
