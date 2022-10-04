@@ -1,5 +1,6 @@
 <?php
 // cntnd_schedule_output
+$cntnd_module = "cntnd_schedule";
 
 // assert framework initialization
 defined('CON_FRAMEWORK') || die('Illegal call: Missing framework initialization - request aborted.');
